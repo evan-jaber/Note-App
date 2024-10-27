@@ -1,0 +1,78 @@
+# General
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.swo
+*.swp
+.DS_Store
+*.env
+.env.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+/server/venv/
+.server/venv/
+.client/node_modules/
+
+# Django (server)
+server/db.sqlite3
+server/media/
+server/staticfiles/
+server/local_settings.py
+
+# Django cache files
+*.mo
+*.pot
+*.log
+
+# React (client) - Vite
+client/node_modules/
+client/dist/
+client/.env
+client/.env.*
+client/.pnp.*
+client/.pnp.js
+client/.vitepress/
+
+# Environment and sensitive files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage reports
+coverage/
+*.cover
+*.coverage
+*.coverage.*
+
+# macOS and Windows system files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional)
+.vscode/
+.history/
+
+# Idea/IntelliJ settings (optional)
+.idea/
+
+# Build files
+*.class
+*.so
+*.dll
+*.exe
+
+# Temporary files
+*.tmp
+*.temp
+
+# Pipfile and Pipfile.lock (if using Pipenv)
+Pipfile.lock
+Pipfile
