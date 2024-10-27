@@ -9,6 +9,10 @@ In the root folder, on the terminal create a virtual environment.
  a) Install django and all the main libraries : 
   a. pip install django 
   b. pip install djangorestframework django-cors-headers
+  c. pip install djangorestframework-simplejwt
+  d. pip install PyJWT
+  e. python -m pip install Pillow
+  f. pip install django-jazzmin
   
  b) Create project in terminal: django-admin startproject server
  c) Cd to the server folder
@@ -39,9 +43,10 @@ Go back to the root folder and:
       "http://localhost:5173",
   ]
   
-  #Application definition
+  #Application definition (add jazzmin on top)
   
   INSTALLED_APPS = [
+      'jazzmin',
       'django.contrib.admin',
       'django.contrib.auth',
       'django.contrib.contenttypes',
@@ -49,6 +54,7 @@ Go back to the root folder and:
       'django.contrib.messages',
       'django.contrib.staticfiles',
       #External Apps
+      'rest_framework_simplejwt.token_blacklist',
       'rest_framework',
       'corsheaders',
       #Internal Apps
@@ -66,12 +72,50 @@ Go back to the root folder and:
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
   ]
 
-6) Install requierments
+6) import time delta format in settings.py
+    a) from datetime import timedelta
+
+7) add these lines in the end of the settings.py to configure jwt based auth
+REST_FRAMEWORK = {
+ 'DEFAULT_AUTHENTICATION_CLASSES': (
+ 'rest_framework_simplejwt.authentication.JWTAuthentication',
+ )
+ }
+
+SIMPLE_JWT = {
+ 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+ 'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
+ 'ROTATE_REFRESH_TOKENS': True,
+ 'BLACKLIST_AFTER_ROTATION': True,
+ 'UPDATE_LAST_LOGIN': False,
+ 'ALGORITHM': 'HS256',
+ 'VERIFYING_KEY': None,
+ 'AUDIENCE': None,
+ 'ISSUER': None,
+ 'JWK_URL': None,
+ 'LEEWAY': 0,
+ 'AUTH_HEADER_TYPES': ('Bearer',),
+ 'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+ 'USER_ID_FIELD': 'id',
+ 'USER_ID_CLAIM': 'user_id',
+ 'USER_AUTHENTICATION_RULE':
+ 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+ 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+ 'TOKEN_TYPE_CLAIM': 'token_type',
+ 'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+ 'JTI_CLAIM': 'jti',
+ 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+ 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+ 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+ }
+
+
+8) Install requierments
     a. activate env
     b. cd to server
     c. pip freeze > requirments.txt
 
-7) Install django environ
+9) Install django environ
     a. activate env
     b. cd to server
     c. pip install django-environ
